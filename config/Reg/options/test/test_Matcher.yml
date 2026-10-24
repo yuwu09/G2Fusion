@@ -1,0 +1,36 @@
+name: Matcher
+suffix: ~ # add suffix to saved images
+model: Matcher
+distortion: Composite
+gpu_ids: [0]
+
+datasets:
+  test1:
+    name: test_all_59000
+    mode: XYflow
+    dataroot_X_warp: PATH_TO_PRIVATE_DATA/datasets/train/X_warp/X_wrap
+    dataroot_X: PATH_TO_PRIVATE_DATA/datasets/train/X_warp/X_reg
+    dataroot_Y: PATH_TO_PRIVATE_DATA/datasets/train/Y
+    X_size: 384
+    Y_size: 384
+    n_workers: 4
+    batch_size: 1
+    color: RGB
+
+#### network structures
+network_Match:
+  which_model_Match: DenseMatcher
+  setting:
+    in_channels: 3
+    unshare_depth: 4
+    matcher_depth: 4
+
+network_dino:
+  which_model_dino: DINOv3
+  setting:
+    model_dir: PATH_TO_DINOV3_MODEL
+#### path
+path:
+  pretrain_model_Dino: PATH_TO_CHECKPOINT/PLACEHOLDER_DINO_WEIGHT.pth
+  pretrain_model_Matcher: PATH_TO_CHECKPOINT/PLACEHOLDER_MATCHER_WEIGHT.pth
+  strict_load: true

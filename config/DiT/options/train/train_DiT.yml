@@ -1,0 +1,105 @@
+#### general settings
+name: DiT
+use_tb_logger: true
+model: DiT
+distortion: mixed
+gpu_ids: [0, 1]
+
+#### datasets
+datasets:
+  train:
+    name: Train_Dataset
+    mode: XYZflowplus
+    dataroot_X: PATH_TO_PRIVATE_DATA/datasets_newplus/train/X
+    dataroot_Y: PATH_TO_PRIVATE_DATA/datasets_newplus/train/Y
+    dataroot_Z: PATH_TO_PRIVATE_DATA/datasets_newplus/train/Z
+    use_shuffle: true
+    n_workers: 8 # per GPU
+    #batch_size: 128
+    batch_size: 16
+    X_size: 256
+    Y_size: 256
+    Z_size: 256
+    use_flip: true
+    use_rot: true
+    use_swap: false
+    color: RGB
+  val:
+    name: Val_Dataset
+    mode: XYZflowplus
+    dataroot_X: PATH_TO_PRIVATE_DATA/datasets_newplus/test/X
+    dataroot_Y: PATH_TO_PRIVATE_DATA/datasets_newplus/test/Y
+    dataroot_Z: PATH_TO_PRIVATE_DATA/datasets_newplus/test/Z
+    dataroot_X_warp: PATH_TO_PRIVATE_DATA/datasets_newplus/test/X_warp/X_wrap
+    color: RGB
+
+#### network structures
+
+network_AE:
+  which_model: AutoEncoder
+  setting:
+    in_ch: 3
+    out_ch: 3
+    ch: 8
+    ch_mult: [4, 8, 8, 16]
+    embed_dim: 8
+
+network_Match:
+  which_model_Match: DenseMatcher
+  setting:
+    in_channels: 3
+    unshare_depth: 4
+    matcher_depth: 4
+
+network_dino:
+  which_model_dino: DINOv3
+  setting:
+    model_dir: PATH_TO_DINOV3_MODEL
+# DiT_B_2 parameters
+network_Fusion:
+  which_model: DiT
+  setting:
+    input_size: 32
+    patch_size: 2
+    in_channels: 8
+    hidden_size: 640
+    depth: 10
+    num_heads: 10
+    mlp_ratio: 4.0
+    learn_sigma: true
+
+#### path
+path:
+  pretrain_model_Fusion: null
+  pretrain_model_Dino: PATH_TO_CHECKPOINT/PLACEHOLDER_DINO_WEIGHT.pth
+  pretrain_model_Matcher: PATH_TO_CHECKPOINT/PLACEHOLDER_MATCHER_WEIGHT.pth
+  strict_load: true
+  resume_state: null
+  pretrain_model_AE: PATH_TO_CHECKPOINT/PLACEHOLDER_AE_WEIGHT.pth
+
+#### training settings: learning rate scheme, loss
+train:
+  optimizer: AdamW
+  lr_G: !!float 5e-5
+  lr_scheme: TrueCosineAnnealingLR
+  beta1: 0.9
+  beta2: 0.99
+  #niter: 400000
+  niter: 1000000
+  warmup_iter: -1 # no warm up
+  lr_steps: [200000, 400000, 800000]
+  lr_gamma: 0.5
+  eta_min: !!float 1e-7
+
+  # criterion
+  is_weighted: False
+  loss_type: l1
+  weight: 1.0
+
+  manual_seed: 0
+  val_freq: !!float 20000
+
+#### logger
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 5000

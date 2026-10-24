@@ -1,0 +1,17 @@
+# Install a CUDA-compatible PyTorch build separately if needed.
+torch
+torchvision
+numpy
+opencv-python
+Pillow
+PyYAML
+kornia
+transformers>=4.56.0
+ema-pytorch
+tqdm
+tensorboard
+safetensors
+lmdb
+timm
+einops
+lpips

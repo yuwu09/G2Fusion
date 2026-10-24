@@ -1,0 +1,51 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+*.egg-info/
+build/
+dist/
+
+# Model weights and generated experiment outputs
+*.pth
+*.pt
+*.ckpt
+*.state
+*.safetensors
+*.onnx
+*.tfevents.*
+experiments/
+results/
+logs/
+log/
+result/
+image/
+dinov3_finetune_results/
+checkpoints/
+
+# Local datasets (keep the data/ Python package under version control)
+datasets/
+datasets_newplus/
+*.lmdb/
+
+# Credentials, editor settings, and OS files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp
+*.bak

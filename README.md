@@ -103,5 +103,3 @@ Our code is built upon the following projects. We sincerely thank the authors fo
 ## License
 
 This project is released under the terms of the [LICENSE](LICENSE).
-
-Third-party components retain their own licenses, including CC BY-NC 4.0 for DiT-derived code. See [third-party notices](THIRD_PARTY_NOTICES.md) for details.

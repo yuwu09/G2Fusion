@@ -1,5 +1,4 @@
-# G2Fusion：
-**Geometric-to-Generative Image Fusion via Registration-Restoration Evolution**
+# This is the code of G2Fusion：Geometric-to-Generative Image Fusion via Registration-Restoration Evolution (NeurIPS 2026).
 
 G2Fusion addresses infrared-visible image fusion when **spatial misalignment and image degradation coexist**. It combines explicit geometric registration with conditional generative fusion to recover aligned, detailed fused images from unregistered and degraded inputs.
 

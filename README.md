@@ -4,7 +4,7 @@ G2Fusion addresses infrared-visible image fusion when **spatial misalignment and
 
 ## Method
 ![Overview of G2Fusion](docs/assets/framework.png)
-## Data and checkpoints
+## Data
 
 Obtain datasets from their original providers and prepare matching image pairs. The loaders pair files by **sorted path order**, so filenames, counts, and spatial dimensions must correspond across folders.
 
